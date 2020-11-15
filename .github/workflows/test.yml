@@ -3,7 +3,7 @@ name: Cache test
 on:
   push:
     branches: [ main ]
-  pull_request_target:
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -12,13 +12,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/merge', github.event.pull_request.number) || '' }}
 
       - name: Cache
         uses: actions/cache@v2
         with:
           path: README.md
-          key: v1-${{ hashFiles('README.md') }}
+          key: v2-${{ hashFiles('README.md') }}
           restore-keys: |
-            v1-
+            v2-
