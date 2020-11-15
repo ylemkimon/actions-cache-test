@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: github.event_name == 'pull_request_target' && refs/pull/${{ github.event.pull_request.number }}/merge
+          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/merge', github.event.pull_request.number) }}
 
       - name: Cache
         uses: actions/cache@v2
