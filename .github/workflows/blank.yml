@@ -1,0 +1,24 @@
+name: Cache test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request_target:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: github.event_name == 'pull_request_target' && refs/pull/${{ github.event.pull_request.number }}/merge
+
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: README.md
+          key: v1-${{ hashFiles('README.md') }}
+          restore-keys: |
+            v1-
