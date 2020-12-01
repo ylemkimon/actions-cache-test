@@ -13,10 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache
-        uses: actions/cache@v2
-        with:
-          path: README.md
-          key: v2-${{ hashFiles('README.md') }}
-          restore-keys: |
-            v2-
+      - run: |
+          cat /etc/docker/daemon.json
